@@ -1,7 +1,8 @@
 import React from 'react';
-import BookShow from './book'
+import Header from './header/Header'
+
 export default function Controller() {
     return (
-        <h1>Hello</h1>
+        <Header/>
     )
 }
