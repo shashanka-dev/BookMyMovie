@@ -7,7 +7,7 @@ const Header = function() {
     let loggedIn = true;
     if (loggedIn) {
         return (
-            <div container id="header">
+            <div id="header">
                 <img id="header-logo" src={Logo} alt="Loading"/>
                 <span id="btn-grp">
                     <Button id="login" variant="contained">Login</Button>
@@ -16,7 +16,7 @@ const Header = function() {
         )
     } else {
         return (
-            <div container id="header">
+            <div id="header">
                 <img id="header-logo" src={Logo} alt="Loading"/>
                 <span id="btn-grp">
                     <Button id="book" variant="contained" color="primary">Book Show</Button>
