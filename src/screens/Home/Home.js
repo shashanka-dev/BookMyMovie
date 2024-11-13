@@ -144,17 +144,13 @@ const Home = function (props) {
 const Released = function (props) {
     const { classes } = props;
 
-    const showDetails = (title) =>  {
-        console.log(title)
-    }
-
     return (
         <div id="released">
             <div id="released-movies">
                 <GridList cellHeight={350} className={classes.gridList} cols={4}>
                     {tileData.map((tile) => (
-                        <GridListTile key={tile.img} >
-                            <img src={tile.img} alt={tile.title} onClick={showDetails(tile.title)}/>
+                        <GridListTile key={tile.img}>
+                            <img src={tile.img} alt={tile.title}/>
                             <GridListTileBar
                                 title={tile.title}
                                 classes={{

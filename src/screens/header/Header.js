@@ -117,7 +117,7 @@ const Header = function(props) {
             <div id="header">
                 <img id="header-logo" src={Logo} alt="Loading" />
                 <span id="btn-grp">
-                    <Button id="book" variant="contained" color="primary">Book Show</Button>
+                    
                     <Button id="login" variant="contained" onClick={handleOpen}>Login</Button>
                 </span>
                 <Modal
