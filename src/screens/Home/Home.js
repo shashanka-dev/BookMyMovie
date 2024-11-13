@@ -8,8 +8,19 @@ import GridListTile from '@material-ui/core/GridListTile';
 import GridListTileBar from '@material-ui/core/GridListTileBar';
 import IconButton from '@material-ui/core/IconButton';
 import StarBorderIcon from '@material-ui/icons/StarBorder';
-import Paper from '@material-ui/core/Paper';
-import Grid from '@material-ui/core/Grid';
+import Button from '@material-ui/core/Button';
+import Card from '@material-ui/core/Card';
+import CardActionArea from '@material-ui/core/CardActionArea'
+import CardActions from '@material-ui/core/CardActions'
+import CardContent from '@material-ui/core/CardContent'
+import Input from '@material-ui/core/Input';
+import InputLabel from '@material-ui/core/InputLabel';
+import FormControl from '@material-ui/core/FormControl'
+import MenuItem from '@material-ui/core/MenuItem';
+import Select from '@material-ui/core/Select';
+import Checkbox from '@material-ui/core/Checkbox';
+import ListItemText from '@material-ui/core/ListItemText';
+import TextField from '@material-ui/core/TextField';
 
 import { withStyles } from '@material-ui/core/styles';
 
@@ -35,6 +46,25 @@ const gridStyles = theme => ({
         justifyContent: "space-around",
         overflow: "hidden",
         backgroundColor: theme.palette.background.paper
+    },
+
+});
+
+const cardStyle = theme => ({
+    filterRoot: {
+        position: 'absolute',
+        backgroundColor: theme.palette.background.paper,
+        boxShadow: theme.shadows[5],
+        padding: theme.spacing.unit * 4,
+        outline: 'none',
+        maxWidth: 240,
+        minWidth: 240,
+    },
+    textField: {
+        width: "100%",
+    },
+    formControl: {
+        width: "100%"
     },
     
 });
@@ -103,7 +133,7 @@ const Home = function (props) {
                         </GridListTile>
                     ))}
                 </GridList>
-                <ReleasedSec/>
+                <ReleasedSec />
             </div>
         </div>
     )
@@ -117,32 +147,172 @@ const Released = function (props) {
             <div id="released-movies">
                 <GridList cellHeight={350} className={classes.gridList} cols={4}>
                     {tileData.map((tile) => (
-                    <GridListTile key={tile.img}>
-                        <img src={tile.img} alt={tile.title} />
-                        <GridListTileBar
-                            title={tile.title}
-                            classes={{
-                                root: classes.titleBar,
-                                title: classes.title,
-                            }}
+                        <GridListTile key={tile.img}>
+                            <img src={tile.img} alt={tile.title} />
+                            <GridListTileBar
+                                title={tile.title}
+                                classes={{
+                                    root: classes.titleBar,
+                                    title: classes.title,
+                                }}
                                 actionIcon={
-                                <IconButton aria-label={`star ${tile.title}`}>
-                                <StarBorderIcon className={classes.title} />
-                                </IconButton>
-                            }
-                        />
-                    </GridListTile>
+                                    <IconButton aria-label={`star ${tile.title}`}>
+                                        <StarBorderIcon className={classes.title} />
+                                    </IconButton>
+                                }
+                            />
+                        </GridListTile>
                     ))}
                 </GridList>
             </div>
-                
-            <div>
-
+            <div id="filter">
+                <FilterCard />
             </div>
         </div>
     )
 }
 
- const ReleasedSec = withStyles(gridStyles)(Released);
+const Filter = function (props) {
+    const { classes } = props;
+
+    const ITEM_HEIGHT = 48;
+    const ITEM_PADDING_TOP = 8;
+    const MenuProps = {
+        PaperProps: {
+          style: {
+            maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
+            width: 250,
+          },
+        },
+      };
+
+    const genreNames = [
+        'Drama',
+        'Thriler',
+        'Action',
+        'Sci-Fi'
+    ]
+    const [genre, setGenre] = React.useState([]);
+    const genreChange = (event) => {
+        setGenre(event.target.value);
+    };
+
+    const artistNames = [
+        'Amitabh Bachchan',
+        'Shah Rukh Khan',
+        'Ranveer Singh',
+        'Farhan Akhtar',
+        'Raj Kumar Rao'
+    ]
+    
+    const [artist, setArtist] = React.useState([]);
+    const artistChange = (event) => {
+        setArtist(event.target.value);
+    };
+
+    return (
+            <Card className={classes.filterRoot}>
+                <CardActionArea>
+                    <CardContent>
+                        <div>
+                            <FormControl className={classes.formControl}>
+                                <InputLabel
+                                    htmlFor="moviename"
+                                    classes={{
+                                        root: classes.cssLabel,
+                                        focused: classes.cssFocused,
+                                    }}>
+                                    Movie Name
+                                            </InputLabel>
+                                <Input
+                                    id="moviename"
+                                    classes={{
+                                        underline: classes.cssUnderline,
+                                    }}
+                                />
+                            </FormControl>
+                        </div>
+                        <div>
+                            <FormControl className={classes.formControl}>
+                                <InputLabel id="genre-label">Generes</InputLabel>
+                                <Select
+                                    labelid="genre-label"
+                                    id="genre"
+                                    multiple
+                                    value={genre}
+                                    onChange={genreChange}
+                                    renderValue={(selected) => selected.join(', ')}
+                                    MenuProps={MenuProps}
+                                >
+                                    {genreNames.map((genreName) => (
+                                        <MenuItem key={genreName} value={genreName}>
+                                        <Checkbox checked={genre.indexOf(genreName) > -1} />
+                                        <ListItemText primary={genreName} />
+                                        </MenuItem>
+                                    ))}
+                                </Select>
+                            </FormControl>
+                        </div>
+                        <div>
+                            <FormControl className={classes.formControl}>
+                                <InputLabel id="genre-label">Artists</InputLabel>
+                                <Select
+                                    labelid="genre-label"
+                                    id="genre"
+                                    multiple
+                                    value={artist}
+                                    onChange={artistChange}
+                                    renderValue={(selected) => selected.join(', ')}
+                                    MenuProps={MenuProps}
+                                >
+                                    {artistNames.map((artistName) => (
+                                        <MenuItem key={artistName} value={artistName}>
+                                        <Checkbox checked={artist.indexOf(artistName) > -1} />
+                                        <ListItemText primary={artistName} />
+                                        </MenuItem>
+                                    ))}
+                                </Select>
+                            </FormControl>
+                        </div>
+                        <div>
+                            <form noValidate>
+                                <TextField
+                                    id="date"
+                                    label="Release Date Start"
+                                    type="date"
+                                    placeholder="dd-mm-yyyy"
+                                    className={classes.textField}
+                                    InputLabelProps={{
+                                    shrink: true,
+                                    }}
+                                />
+                            </form>
+                        </div>
+                        <div>
+                            <form noValidate>
+                                <TextField
+                                    id="date"
+                                    label="Release Date End"
+                                    type="date"
+                                    placeholder="dd-mm-yyyy"
+                                    className={classes.textField}
+                                    InputLabelProps={{
+                                    shrink: true,
+                                    }}
+                                />
+                            </form>
+                        </div>
+                    </CardContent>
+                </CardActionArea>
+                <CardActions>
+                    <Button id="filter" variant="contained" color="primary">Filter</Button>
+                </CardActions>
+            </Card>
+    )
+}
+
+const ReleasedSec = withStyles(gridStyles)(Released);
+
+const FilterCard = withStyles(cardStyle)(Filter);
 
 export default withStyles(styles)(Home);

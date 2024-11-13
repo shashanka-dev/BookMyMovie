@@ -13,3 +13,14 @@
     width: 76%;
     margin: 16px;
 }
+
+#filter {
+    width: 24%;
+    margin: 16px;
+}
+.inputDiv {
+    width: 80%;
+}
+.input-field {
+    width: 100%;
+}
