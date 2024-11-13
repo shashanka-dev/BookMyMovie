@@ -1,8 +1,8 @@
 import React from 'react';
 import "./Header.css";
 import Logo from "./../../assets/logo.svg";
-import Button from '@material-ui/core/Button';
 
+import Button from '@material-ui/core/Button';
 import Modal from '@material-ui/core/Modal';
 import Input from '@material-ui/core/Input';
 import InputLabel from '@material-ui/core/InputLabel';
@@ -51,104 +51,97 @@ function getModalStyle() {
     };
 }
 
-class Header extends React.Component {
-    render() {
-        let loggedIn = true;
+const Header = function(props) {
+    const [open, setOpen] = React.useState(false);
+    let loggedIn = true;
 
-        if (loggedIn) {
-            return (
-                <div id="header">
-                    <img id="header-logo" src={Logo} alt="Loading" />
-                    <CustomModalStyle />
+    const handleOpen = () => {
+        setOpen(true);
+    };
+    const handleClose = () => {
+        setOpen(false);
+    };
+
+    const { classes } = props;
+
+    const modalBody = (
+        
+            <div style={getModalStyle()} className={classes.paper}>
+                <div>
+                    <FormControl variant="h6" id="modal-title">
+                        <InputLabel
+                            htmlFor="username"
+                            classes={{
+                                root: classes.cssLabel,
+                                focused: classes.cssFocused,
+                            }}>
+                            Username*
+                                    </InputLabel>
+                        <Input
+                            id="username"
+                            classes={{
+                                underline: classes.cssUnderline,
+                            }}
+                        />
+                    </FormControl>
                 </div>
-            )
-        } else {
-            return (
-                <div id="header">
-                    <img id="header-logo" src={Logo} alt="Loading" />
-                    <span id="btn-grp">
-                        <Button id="book" variant="contained" color="primary">Book Show</Button>
-                        <Button id="logout" variant="contained">Logout</Button>
-                    </span>
+                <div>
+                    <FormControl variant="h6" id="modal-title">
+                        <InputLabel
+                            htmlFor="password"
+                            classes={{
+                                root: classes.cssLabel,
+                                focused: classes.cssFocused,
+                            }}>
+                            Password*
+                                    </InputLabel>
+                        <Input
+                            type="password"
+                            id="password"
+                            classes={{
+                                underline: classes.cssUnderline,
+                            }}
+                        />
+                    </FormControl>
                 </div>
-            )
-        }
-    }
-}
+                <div>
+                    <Button id="signin" variant="contained" color="primary">Login</Button>
+                </div>
 
-class CustomModal extends React.Component {
-    state = {
-        open: false,
-    };
-    handleOpen = () => {
-        this.setState({ open: true });
-    };
-    handleClose = () => {
-        this.setState({ open: false });
-    };
+            </div>
+        
+    );
 
-    render() {
-        const { classes } = this.props;
+    if (loggedIn) {
         return (
-            <div>
+            <div id="header">
+                <img id="header-logo" src={Logo} alt="Loading" />
                 <span id="btn-grp">
-                <Button id="login" variant="contained" onClick={this.handleOpen}>Login</Button>
-            </span>
-            <Modal
+                    <Button id="book" variant="contained" color="primary">Book Show</Button>
+                    <Button id="login" variant="contained" onClick={handleOpen}>Login</Button>
+                </span>
+                <Modal
                 aria-labelledby="simple-modal-title"
                 aria-describedby="simple-modal-description"
-                open={this.state.open}
-                onClose={this.handleClose}
-            >
-                <div style={getModalStyle()} className={classes.paper}>
-                    <div>
-                        <FormControl variant="h6" id="modal-title">
-                            <InputLabel
-                                htmlFor="username"
-                                classes={{
-                                    root: classes.cssLabel,
-                                    focused: classes.cssFocused,
-                                }}>
-                                Username*
-                                        </InputLabel>
-                            <Input
-                                id="username"
-                                classes={{
-                                    underline: classes.cssUnderline,
-                                }}
-                            />
-                        </FormControl>
-                    </div>
-                    <div>
-                        <FormControl variant="h6" id="modal-title">
-                            <InputLabel
-                                htmlFor="password"
-                                classes={{
-                                    root: classes.cssLabel,
-                                    focused: classes.cssFocused,
-                                }}>
-                                Password*
-                                        </InputLabel>
-                            <Input
-                                type="password"
-                                id="password"
-                                classes={{
-                                    underline: classes.cssUnderline,
-                                }}
-                            />
-                        </FormControl>
-                    </div>
-                    <div>
-                        <Button id="signin" variant="contained" color="primary">Login</Button>
-                    </div>
-
-                </div>
-            </Modal>
+                open={open}
+                onClose={handleClose}>
+                    {modalBody}
+                </Modal>
+            </div>
+        )
+    } else {
+        return (
+            <div id="header">
+                <img id="header-logo" src={Logo} alt="Loading" />
+                <span id="btn-grp">
+                    <Button id="book" variant="contained" color="primary">Book Show</Button>
+                    <Button id="logout" variant="contained">Logout</Button>
+                </span>
             </div>
         )
     }
+
+
 }
 
-const CustomModalStyle = withStyles(styles)(CustomModal);
-
-export default Header; 
+export default withStyles(styles)(Header);;

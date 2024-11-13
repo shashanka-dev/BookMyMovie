@@ -71,36 +71,36 @@ const cardStyle = theme => ({
 
 const tileData = [
     {
-        img: 'https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885__480.jpg',
-        title: 'Image0',
+        img: 'https://www.washingtonpost.com/graphics/2019/entertainment/oscar-nominees-movie-poster-design/img/black-panther-web.jpg',
+        title: 'Black Panther',
 
     },
     {
-        img: 'https://images.pexels.com/photos/674010/pexels-photo-674010.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500',
-        title: 'Image1',
+        img: 'https://www.scifi-movies.com/images/contenu/data/0004657/affiche-le-labyrinthe-le-remede-mortel-the-maze-runner-the-death-cure-2018-3.jpg',
+        title: 'Maze Runner',
 
     },
     {
-        img: 'https://image.shutterstock.com/image-photo/waves-water-river-sea-meet-600w-1529923664.jpg',
-        title: 'Image2',
+        img: 'https://i2.wp.com/fireballtim.com/wp-content/uploads/2014/11/robotoverlords-finalposter-full.jpg',
+        title: 'Robot Overloads',
 
     },
     {
-        img: 'https://analyticsindiamag.com/wp-content/uploads/2020/10/7d744a684fe03ebc7e8de545f97739dd.jpg',
-        title: 'Image3',
+        img: 'https://m.media-amazon.com/images/M/MV5BMDlmNDZlNzgtZGQzZC00ODFhLWE4NzItOTVjYjNlYWY4YzJjXkEyXkFqcGdeQXVyNjc5Mjg4Nzc@._V1_.jpg',
+        title: 'Chennai Express',
 
     },
     {
-        img: 'https://cdn.pixabay.com/photo/2015/04/19/08/32/marguerite-729510_1280.jpg',
-        title: 'Image4',
+        img: 'https://m.media-amazon.com/images/M/MV5BNGI1MTI1YTQtY2QwYi00YzUzLTg3NWYtNzExZDlhOTZmZWU0XkEyXkFqcGdeQXVyMDkwNTkwNg@@._V1_.jpg',
+        title: 'Pink',
     },
     {
-        img: 'https://image.shutterstock.com/image-photo/large-beautiful-drops-transparent-rain-600w-668593321.jpg',
-        title: 'Image5',
+        img: 'https://upload.wikimedia.org/wikipedia/en/9/90/Kaththi_poster.jpg',
+        title: 'Ikka',
     },
     {
-        img: 'https://image.shutterstock.com/image-illustration/nature-technology-abstract-concept-robot-600w-1072059917.jpg',
-        title: 'Image6',
+        img: 'https://upload.wikimedia.org/wikipedia/en/6/68/Newton_%28film%29.png',
+        title: 'Newton',
     }
 ];
 
@@ -139,27 +139,29 @@ const Home = function (props) {
     )
 }
 
+
+
 const Released = function (props) {
     const { classes } = props;
+
+    const showDetails = (title) =>  {
+        console.log(title)
+    }
 
     return (
         <div id="released">
             <div id="released-movies">
                 <GridList cellHeight={350} className={classes.gridList} cols={4}>
                     {tileData.map((tile) => (
-                        <GridListTile key={tile.img}>
-                            <img src={tile.img} alt={tile.title} />
+                        <GridListTile key={tile.img} >
+                            <img src={tile.img} alt={tile.title} onClick={showDetails(tile.title)}/>
                             <GridListTileBar
                                 title={tile.title}
                                 classes={{
                                     root: classes.titleBar,
                                     title: classes.title,
                                 }}
-                                actionIcon={
-                                    <IconButton aria-label={`star ${tile.title}`}>
-                                        <StarBorderIcon className={classes.title} />
-                                    </IconButton>
-                                }
+                                
                             />
                         </GridListTile>
                     ))}

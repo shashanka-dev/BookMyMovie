@@ -1,0 +1,8 @@
+#back-link {
+    margin-left: 24px;
+    margin-top: 8px;
+    margin-bottom: 0px;
+}
+#back-link:hover {
+    cursor: pointer;
+}
